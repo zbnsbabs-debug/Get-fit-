@@ -20,6 +20,11 @@ jobs:
           ls -la
           ls -la FitForge_v2
 
+      - name: Enable AndroidX
+        run: |
+          echo "android.useAndroidX=true" > FitForge_v2/gradle.properties
+          echo "android.enableJetifier=true" >> FitForge_v2/gradle.properties
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
