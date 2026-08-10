@@ -11,8 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Download project
         uses: actions/checkout@v4
+
+      - name: Extract FitForge project
+        run: |
+          unzip -o FitForge_v2_Android_Project.zip
+          ls -la
+          ls -la FitForge_v2
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -26,10 +32,11 @@ jobs:
           gradle-version: '8.7'
 
       - name: Build APK
+        working-directory: FitForge_v2
         run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: FitForge-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: FitForge-APK
+          path: FitForge_v2/app/build/outputs/apk/debug/app-debug.apk
